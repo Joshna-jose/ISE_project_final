@@ -9,8 +9,8 @@ const reviewerSchema = mongoose.Schema({
     university: String,
     address: String,
     contact: Number,
-    email: String 
-}, { collection: 'reviewers', versionKey: false});
+    email: String
+}, { collection: 'reviewers'});
 
 const papersSchema = mongoose.Schema({
     title: String,
@@ -20,7 +20,7 @@ const papersSchema = mongoose.Schema({
     attachment: String,
     submittedby: String,
     assigned: Number 
-},{ collection: 'papers', versionKey: false });
+},{ collection: 'papers'});
 
 const usersSchema = mongoose.Schema({
     name: String,
@@ -32,8 +32,40 @@ const usersSchema = mongoose.Schema({
     link: String 
 }, { collection: 'users', versionKey: false});
 
+const dataSchema = new mongoose.Schema({
+    title: {
+      type: String,
+      required: true
+    },
+    authors: {
+      type: String,
+      required: true
+    },
+    keywords: String,
+    abstract: String,
+    attachment: String,
+    submittedby: String,
+    assigned: Number,
+    rev1: {
+      type: String,
+      default: ""
+    },
+    rev2: {
+      type: String,
+      default: ""
+    },
+    rev3: {
+      type: String,
+      default: ""
+    }
+  }, { collection: 'papers' }); 
+
 const Reviewer = mongoose.model("Reviewer", reviewerSchema);
 const Paper = mongoose.model("Paper", papersSchema);
 const User = mongoose.model("User", usersSchema);
+const Data = mongoose.model("Data", dataSchema);
+const Reviewers = mongoose.model('Reviewers', new mongoose.Schema({
+    name: String,
+  }));
 
-module.exports = { Reviewer, Paper, User };
+module.exports = { Reviewer, Paper, User, Data, Reviewers };
